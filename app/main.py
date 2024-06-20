@@ -10,13 +10,13 @@ from app.book_scraper import NaverBookScraper
 
 BASE_DIR = Path(__file__).resolve().parent
 
-app = FastAPI()
+app = FastAPI(title="데이터 수집가", version="0.0.1")
 
 # app.mount("/static", StaticFiles(directory="static"), name="static")
 # mount: 일종의 미들웨어, css와 같은 static 파일을 동작
 
 
-templates = Jinja2Templates(directory=BASE_DIR / "templates")
+templates = Jinja2Templates(directory=str(BASE_DIR / "templates"))
 
 
 @app.get("/", response_class=HTMLResponse)
