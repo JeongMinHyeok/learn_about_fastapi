@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>콜렉터 북북이</title>
+    <link href="https://unpkg.com/mvp.css" rel="stylesheet" />
+  </head>
+  <style>
+    section {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+    }
+  </style>
+  <body>
+    <header>
+      <h1>콜렉터스 북북이</h1>
+      <center>
+        <form id="search_form" action="/search">
+          <input
+            type="search"
+            placeholder="keyword"
+            id="search_input"
+            name="q"
+          />
+          <button type="submit">검색</button>
+        </form>
+      </center>
+    </header>
+    <main>
+      {% if books %}
+      <!-- context에서 books 데이터를 받았을 경우에만 -->
+      <center>
+        <!-- {{books|length}} == len(books) -->
+        <h3 style="color: gray">{{books|length}}개 데이터 수집..</h3>
+      </center>
+      <section>
+        {% for book in books %}
+        <div>
+          <img src="{{book.image}}" width="150px" height="200px" />
+          <p>
+            {% if book.publisher|length > 10 %}
+            <!-- 출판사의 길이가 10이 넘을때 -->
+            {{book.publisher[:10]}}...
+            <!-- 길이 10까지만 보여줌 / 아닐시 전체 노출 -->
+            {% else %} {{book.publisher}} {% endif %}
+          </p>
+          <p>{{book.price}} 원</p>
+        </div>
+        {% endfor %}
+      </section>
+      <!-- {{books}} -->
+      <!-- books 데이터를 받지 않았을 때(else) -->
+      {% else %}
+      <center><h3 style="color: gray">Please Input Keyword...</h3></center>
+      {% endif %}
+    </main>
+  </body>
+</html>
